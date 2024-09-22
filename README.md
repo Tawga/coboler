@@ -1,65 +1,45 @@
-# coboler README
+# COBOL Extension for Visual Studio Code
 
-This is the README for your extension "coboler". After writing up a brief description, we recommend including the following sections.
+## Overview
+
+This extension provides a simple interface for compiling and running COBOL programs directly from Visual Studio Code using the GnuCOBOL compiler. It features commands to compile, run, and compile & run COBOL programs, all while managing the output in a dedicated `bin` folder.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Compile COBOL Programs**: Compiles the currently open COBOL file into an executable.
+- **Run COBOL Programs**: Executes the compiled COBOL program.
+- **Compile & Run**: Combines both actions in one command.
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+1. Ensure you have [Visual Studio Code](https://code.visualstudio.com/) installed.
+2. Install GnuCOBOL on your system.
+3. Download the `.vsix` package and install it using the command:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+   ```bash
+   code --install-extension your-extension-name-0.0.1.vsix
+   ```
 
-## Requirements
+## Usage
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. Open a COBOL file in VS Code.
+2. Use the commands in the top-right tab bar:
+   - **Compile COBOL**: Compiles the current file.
+   - **Run COBOL**: Runs the compiled executable.
+   - **Compile & Run**: Compiles the file and runs it immediately if successful.
 
-## Extension Settings
+### Creating the Bin Folder
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+The extension automatically creates a `bin` folder in the same directory as your COBOL files if it doesn't already exist.
 
-For example:
+## Contributing
 
-This extension contributes the following settings:
+If you would like to contribute to this project, feel free to submit a pull request or open an issue.
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## License
 
-## Known Issues
+This project is licensed under the MIT License. See the LICENSE file for more details.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## Acknowledgements
 
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- [GnuCOBOL](https://gnucobol.sourceforge.io/) for the COBOL compiler.
