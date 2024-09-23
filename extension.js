@@ -72,14 +72,14 @@ function createBinFolder(binPath, callback) {
 
 // Helper function to run commands in the VS Code terminal
 function runTerminalCommand(command) {
-	return new Promise((resolve, reject) => {
+	return new Promise((res) => {
 		const terminal =
 			vscode.window.terminals.find((t) => t.name === "COBOL") ||
 			vscode.window.createTerminal("COBOL");
 		terminal.show();
 		terminal.sendText(command);
 		// Resolve immediately after the command is sent
-		resolve();
+		res();
 	});
 }
 

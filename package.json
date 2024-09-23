@@ -2,7 +2,7 @@
 	"name": "coboler",
 	"displayName": "coboler",
 	"description": "Extension to compile and run cobol programs",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "Tawga",
 	"engines": {
 		"vscode": "^1.93.0"
@@ -59,7 +59,8 @@
 	"scripts": {
 		"lint": "eslint .",
 		"pretest": "npm run lint",
-		"test": "vscode-test"
+		"test": "vscode-test",
+		"build": "vsce package --out dist/"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.93.0",
