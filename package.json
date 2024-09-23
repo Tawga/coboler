@@ -1,8 +1,8 @@
 {
 	"name": "coboler",
-	"displayName": "coboler",
+	"displayName": "Coboler",
 	"description": "Extension to compile and run cobol programs",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"publisher": "jsaila",
 	"engines": {
 		"vscode": "^1.93.0"

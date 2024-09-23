@@ -1,4 +1,5 @@
 const vscode = require("vscode");
+const { exec } = require("child_process");
 const path = require("path");
 const fs = require("fs"); // Import fs module for file system operations
 
@@ -35,7 +36,6 @@ function activate(context) {
 	context.subscriptions.push(compileCobol, runCobol, compileAndRunCobol);
 }
 
-// Helper function to compile COBOL code
 function compile(file, callback) {
 	const binPath = path.join(file.dir, "bin");
 	createBinFolder(binPath, () => {
@@ -43,14 +43,26 @@ function compile(file, callback) {
 			binPath,
 			file.name
 		)}.exe" "${file.fullPath}"`; // Wrap paths in quotes
-		runTerminalCommand(compileCommand)
-			.then(() => {
-				vscode.window.showInformationMessage("Compilation successful.");
-				if (callback) callback();
-			})
-			.catch((error) => {
-				vscode.window.showErrorMessage(`Compilation failed: ${error}`);
-			});
+
+		const terminal =
+			vscode.window.terminals.find((t) => t.name === "COBOL") ||
+			vscode.window.createTerminal("COBOL");
+		terminal.show();
+
+		// Use exec to capture the output and error
+		exec(compileCommand, (error, stdout, stderr) => {
+			if (error) {
+				vscode.window.showErrorMessage(`Compilation failed: ${stderr}`);
+				return; // Exit the function if there's an error
+			}
+
+			// If compilation succeeds
+			vscode.window.showInformationMessage("Compilation successful.");
+			if (callback) callback();
+		});
+
+		// Send the compile command to the terminal so the user can see it
+		terminal.sendText(compileCommand);
 	});
 }
 
