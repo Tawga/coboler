@@ -60,7 +60,7 @@
 		"lint": "eslint .",
 		"pretest": "npm run lint",
 		"test": "vscode-test",
-		"build": "vsce package --out dist/"
+		"package": "vsce package --out dist/"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.93.0",
