@@ -1,5 +1,4 @@
 const vscode = require("vscode");
-const { exec } = require("child_process");
 const path = require("path");
 const fs = require("fs"); // Import fs module for file system operations
 
@@ -11,10 +10,10 @@ function activate(context) {
 		if (file) {
 			const binPath = path.join(file.dir, "bin");
 			createBinFolder(binPath, () => {
-				const compileCommand = `cobc -x -o ${path.join(
+				const compileCommand = `cobc -x -o "${path.join(
 					binPath,
 					file.name
-				)}.exe ${file.fullPath}`;
+				)}.exe" "${file.fullPath}"`; // Wrap paths in quotes
 				runTerminalCommand(compileCommand)
 					.then(() => {
 						vscode.window.showInformationMessage("Compilation successful.");
@@ -30,7 +29,7 @@ function activate(context) {
 	let runCobol = vscode.commands.registerCommand("cobol.run", () => {
 		const file = getCurrentFile();
 		if (file) {
-			const exePath = path.join(file.dir, "bin", `${file.name}.exe`);
+			const exePath = `& "${path.join(file.dir, "bin", `${file.name}.exe`)}"`;
 			runTerminalCommand(exePath);
 		}
 	});
@@ -43,13 +42,13 @@ function activate(context) {
 			if (file) {
 				const binPath = path.join(file.dir, "bin");
 				createBinFolder(binPath, () => {
-					const compileCommand = `cobc -x -o ${path.join(
+					const compileCommand = `cobc -x -o "${path.join(
 						binPath,
 						file.name
-					)}.exe ${file.fullPath}`;
+					)}.exe" "${file.fullPath}"`; // Wrap paths in quotes
 					runTerminalCommand(compileCommand)
 						.then(() => {
-							const exePath = path.join(binPath, `${file.name}.exe`);
+							const exePath = `& "${path.join(binPath, `${file.name}.exe`)}"`;
 							return runTerminalCommand(exePath);
 						})
 						.catch((error) => {
@@ -74,37 +73,16 @@ function createBinFolder(binPath, callback) {
 	}
 }
 
-// Helper function to run commands in terminal
+// Helper function to run commands in the VS Code terminal
 function runTerminalCommand(command) {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		const terminal =
 			vscode.window.terminals.find((t) => t.name === "COBOL") ||
 			vscode.window.createTerminal("COBOL");
 		terminal.show();
 		terminal.sendText(command);
 
-		// Use exec to run the command and capture the output
-		exec(command, (error, stdout, stderr) => {
-			if (error) {
-				reject(stderr || stdout);
-				return;
-			}
-			// Check if the command executed successfully
-			resolve(stdout);
-		});
-
-		// Listen for terminal process exit
-		terminal.processId.then((pid) => {
-			const checkExit = setInterval(() => {
-				const running = vscode.window.terminals.some(
-					(t) => t.processId === pid
-				);
-				if (!running) {
-					clearInterval(checkExit);
-					resolve(); // Resolve when terminal process is no longer running
-				}
-			}, 1000);
-		});
+		resolve();
 	});
 }
 
