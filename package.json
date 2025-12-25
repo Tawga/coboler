@@ -4,6 +4,7 @@
 	"description": "Extension to compile and run cobol programs",
 	"version": "0.0.1",
 	"publisher": "Tawga",
+	"license": "MIT",
 	"engines": {
 		"vscode": "^1.93.0"
 	},
